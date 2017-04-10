@@ -4,6 +4,7 @@
     var canvas = document.getElementById('draw-canvas');
     var ctx = canvas.getContext('2d');
     var colorPicker = document.getElementById('color-picker');
+    var isLeftClickActive = false;
     var socket = io();
     const PIXEL_SIZE = 5;
 
@@ -75,6 +76,28 @@
         var selectedColor = getSelectedColor();
         var mousePos = getMousePos(evt);
         drawPixelOnCanvas(selectedColor, mousePos.x, mousePos.y, true);
+    }, false);
+
+    canvas.addEventListener('mousedown', function(evt) {
+        if (evt.button === 2) {
+            return;
+        }
+        isLeftClickActive = true;
+    }, false);
+
+    canvas.addEventListener('mouseup', function(evt) {
+        if (evt.button === 2) {
+            return;
+        }
+        isLeftClickActive = false;
+    }, false);
+
+    canvas.addEventListener('mousemove', function(evt) {
+        if (isLeftClickActive) {
+            var selectedColor = getSelectedColor();
+            var mousePos = getMousePos(evt);
+            drawPixelOnCanvas(selectedColor, mousePos.x, mousePos.y, true);
+        }
     }, false);
 
     loadCoordinatesFromServer();
