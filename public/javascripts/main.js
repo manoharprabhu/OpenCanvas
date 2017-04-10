@@ -45,18 +45,7 @@
     }
 
     var sendCoordinatesToServer = function(color, x, y) {
-        $.ajax({
-            type: 'POST',
-            url: '/placePixel',
-            data: {
-                color,
-                x,
-                y
-            },
-            success: function(data) {
-
-            }
-        });
+        socket.emit('pixelData', { color, x, y });
     }
 
     var drawPixelOnCanvas = function(color, x, y, shouldUpdate) {
