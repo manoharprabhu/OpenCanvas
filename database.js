@@ -2,6 +2,10 @@ var database = (function() {
     var Datastore = require('nedb'),
         db = new Datastore({ filename: 'pixels.db', autoload: true, inMemoryOnly: true });
 
+    var publishUpdateOnSocket = function(data) {
+        io.emit('pixel', data);
+    }
+
     var placePixel = function(color, x, y) {
         db.findOne({ $and: [{ x: x }, { y: y }] }, function(err, doc) {
             if (doc) {
@@ -13,11 +17,12 @@ var database = (function() {
                     color,
                     x,
                     y
-                }, function(err) {
+                }, function(err, doc) {
                     if (err) console.log(err);
                 });
             }
         });
+        publishUpdateOnSocket({ color, x, y });
     }
 
     var getPixels = function(callback) {

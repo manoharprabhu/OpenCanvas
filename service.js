@@ -4,10 +4,10 @@ var service = (function() {
         if (/^#[0-9A-F]{6}$/i.test(color) === false) {
             return false;
         }
-        if (x < 0 || x > 400) {
+        if (x < 0 || x > 2000) {
             return false;
         }
-        if (y < 0 || y > 400) {
+        if (y < 0 || y > 2000) {
             return false;
         }
         return true;

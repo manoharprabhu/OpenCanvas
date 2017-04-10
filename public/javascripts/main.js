@@ -4,12 +4,20 @@
     var canvas = document.getElementById('draw-canvas');
     var ctx = canvas.getContext('2d');
     var colorPicker = document.getElementById('color-picker');
+    var socket = io();
     const PIXEL_SIZE = 5;
 
+    socket.on('connect', function() {
+        console.log('Connected to socket...');
+    });
+
+    socket.on('pixel', function(data) {
+        drawPixelOnCanvas(data.color, data.x, data.y, false);
+    });
 
     var drawExistingCoordinates = function(data) {
         data.forEach(function(item) {
-            drawPixelOnCanvas(item.color, item.x, item.y);
+            drawPixelOnCanvas(item.color, item.x, item.y, false);
         });
     }
 
@@ -50,12 +58,14 @@
         });
     }
 
-    var drawPixelOnCanvas = function(color, x, y) {
+    var drawPixelOnCanvas = function(color, x, y, shouldUpdate) {
         ctx.fillStyle = color;
         var bigX = x - (x % PIXEL_SIZE);
         var bigY = y - (y % PIXEL_SIZE)
         ctx.fillRect(bigX, bigY, PIXEL_SIZE, PIXEL_SIZE);
-        sendCoordinatesToServer(color, bigX, bigY);
+        if (shouldUpdate) {
+            sendCoordinatesToServer(color, bigX, bigY);
+        }
     }
 
     canvas.addEventListener('click', function(evt) {
@@ -64,7 +74,7 @@
         }
         var selectedColor = getSelectedColor();
         var mousePos = getMousePos(evt);
-        drawPixelOnCanvas(selectedColor, mousePos.x, mousePos.y);
+        drawPixelOnCanvas(selectedColor, mousePos.x, mousePos.y, true);
     }, false);
 
     loadCoordinatesFromServer();
