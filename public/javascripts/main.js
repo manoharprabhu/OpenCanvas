@@ -48,12 +48,55 @@
         socket.emit('pixelData', { color, x, y });
     }
 
+    var hexToRgb = function(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+
+    var getCurrentColor = function(x, y) {
+        var imageData = ctx.getImageData(x, y, 1, 1).data;
+        return {
+            r: imageData[0],
+            g: imageData[1],
+            b: imageData[2],
+            a: imageData[3]
+        };
+    }
+
+    var isOverwritingSameColor = function(currentColor, selectedColor) {
+        if (currentColor.a === 0) {
+            return false;
+        }
+
+        if (currentColor.r === selectedColor.r &&
+            currentColor.g === selectedColor.g &&
+            currentColor.b === selectedColor.b) {
+            return true;
+        }
+
+        return false;
+    }
+
     var drawPixelOnCanvas = function(color, x, y, shouldUpdate) {
         ctx.fillStyle = color;
         var bigX = x - (x % PIXEL_SIZE);
-        var bigY = y - (y % PIXEL_SIZE)
+        var bigY = y - (y % PIXEL_SIZE);
+        var currentColor = getCurrentColor(bigX, bigY);
+        var selectedColor = hexToRgb(color);
+        var isSameData = isOverwritingSameColor(currentColor, selectedColor);
         ctx.fillRect(bigX, bigY, PIXEL_SIZE, PIXEL_SIZE);
-        if (shouldUpdate) {
+        if (shouldUpdate && !isSameData) {
             sendCoordinatesToServer(color, bigX, bigY);
         }
     }
