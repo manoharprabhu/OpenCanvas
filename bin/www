@@ -33,7 +33,7 @@ server.on('listening', onListening);
 io = socketio(server);
 var activeUsers = 0;
 io.on('connection', function(socket) {
-    socket.on('pixelData', function(data) {
+    socket.on('pd', function(data) {
         database.placePixel(data.color, data.x, data.y);
     });
 });

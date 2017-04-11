@@ -1,9 +1,18 @@
 (function() {
     'use strict';
-    //Setup canvas drawing handlers
+    var colorCode = ['black', 'white', 'red', 'orange', 'cyan', 'green', 'blue', 'grey'];
+    var hexCode = [{ r: 0, g: 0, b: 0 },
+            { r: 255, g: 255, b: 255 },
+            { r: 255, g: 0, b: 0 },
+            { r: 255, g: 165, b: 0 },
+            { r: 0, g: 255, b: 255 },
+            { r: 0, g: 255, b: 0 },
+            { r: 0, g: 0, b: 255 },
+            { r: 128, g: 128, b: 128 },
+        ]
+        //Setup canvas drawing handlers
     var canvas = document.getElementById('draw-canvas');
     var ctx = canvas.getContext('2d');
-    var colorPicker = document.getElementById('color-picker');
     var isLeftClickActive = false;
     var socket = io();
     const PIXEL_SIZE = 5;
@@ -12,7 +21,7 @@
         console.log('Connected to socket...');
     });
 
-    socket.on('pixel', function(data) {
+    socket.on('px', function(data) {
         drawPixelOnCanvas(data.color, data.x, data.y, false);
     });
 
@@ -45,28 +54,12 @@
     }
 
     var getSelectedColor = function() {
-        return colorPicker.value;
+        return document.querySelector('input[name="sel-color"]:checked').value
     }
 
     var sendCoordinatesToServer = function(color, x, y) {
-        socket.emit('pixelData', { color, x, y });
+        socket.emit('pd', { color, x, y });
     }
-
-    var hexToRgb = function(hex) {
-        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-            return r + r + g + g + b + b;
-        });
-
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-
 
     var getCurrentColor = function(x, y) {
         var imageData = ctx.getImageData(x, y, 1, 1).data;
@@ -93,11 +86,11 @@
     }
 
     var drawPixelOnCanvas = function(color, x, y, shouldUpdate) {
-        ctx.fillStyle = color;
+        ctx.fillStyle = colorCode[color];
         var bigX = x - (x % PIXEL_SIZE);
         var bigY = y - (y % PIXEL_SIZE);
         var currentColor = getCurrentColor(bigX, bigY);
-        var selectedColor = hexToRgb(color);
+        var selectedColor = hexCode[color];
         var isSameData = isOverwritingSameColor(currentColor, selectedColor);
         ctx.fillRect(bigX, bigY, PIXEL_SIZE, PIXEL_SIZE);
         if (shouldUpdate && !isSameData) {

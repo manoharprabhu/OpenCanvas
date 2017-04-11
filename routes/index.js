@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/placePixel', function(req, res, next) {
-    var color = req.body.color,
+    var color = parseInt(req.body.color),
         x = parseInt(req.body.x),
         y = parseInt(req.body.y);
     service.placePixel(color, x, y);

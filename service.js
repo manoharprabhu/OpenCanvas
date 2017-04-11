@@ -1,7 +1,7 @@
 var service = (function() {
     var database = require('./database');
     var validateParameters = function(color, x, y) {
-        if (/^#[0-9A-F]{6}$/i.test(color) === false) {
+        if (color < 0 || color > 7) {
             return false;
         }
         if (x < 0 || x > 2000) {

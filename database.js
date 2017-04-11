@@ -3,7 +3,7 @@ var database = (function() {
         db = new Datastore({ filename: 'pixels.db', autoload: true, inMemoryOnly: true });
 
     var publishUpdateOnSocket = function(data) {
-        io.emit('pixel', data);
+        io.emit('px', data);
     }
 
     var placePixel = function(color, x, y) {
@@ -26,7 +26,7 @@ var database = (function() {
     }
 
     var getPixels = function(callback) {
-        db.find({}, function(err, docs) {
+        db.find({}, { color: 1, x: 1, y: 1, _id: 0 }, function(err, docs) {
             if (err) console.log(err);
             callback(docs);
         });
