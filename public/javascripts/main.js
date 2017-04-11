@@ -16,6 +16,10 @@
         drawPixelOnCanvas(data.color, data.x, data.y, false);
     });
 
+    socket.on('userCount', function(data) {
+        document.getElementById('user-count').innerText = data;
+    });
+
     var drawExistingCoordinates = function(data) {
         data.forEach(function(item) {
             drawPixelOnCanvas(item.color, item.x, item.y, false);

@@ -31,10 +31,20 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 io = socketio(server);
-
+var activeUsers = 0;
 io.on('connection', function(socket) {
     socket.on('pixelData', function(data) {
         database.placePixel(data.color, data.x, data.y);
+    });
+});
+
+
+io.sockets.on('connection', function(socket) {
+    activeUsers++;
+    io.emit('userCount', activeUsers);
+    socket.on('disconnect', function() {
+        activeUsers--;
+        io.emit('userCount', activeUsers);
     });
 });
 
