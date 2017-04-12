@@ -20,7 +20,11 @@ var service = (function() {
     }
 
     var getPixels = function(callback) {
-        database.getPixels(callback);
+        database.getPixels(function(data) {
+            callback(data.map(function(item) {
+                return { d: [item.x, item.y, parseInt(item.color)] }
+            }));
+        });
     }
 
     return {

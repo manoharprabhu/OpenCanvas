@@ -31,7 +31,7 @@
 
     var drawExistingCoordinates = function(data) {
         data.forEach(function(item) {
-            drawPixelOnCanvas(item.color, item.x, item.y, false);
+            drawPixelOnCanvas(item.d[2], item.d[0], item.d[1], false);
         });
     }
 

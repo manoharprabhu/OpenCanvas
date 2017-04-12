@@ -38,6 +38,8 @@ a {
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
+    border-width: 2px;
+    border-style: solid;
     border-radius: 50%;
     outline: none;
     box-shadow: 0 0 5px 0px gray inset;
@@ -61,33 +63,33 @@ a {
 }
 
 .black-radio {
-    border: 4px solid black;
+    border-color: black;
 }
 
 .white-radio {
-    border: 4px solid white;
+    border-color: white;
 }
 
 .red-radio {
-    border: 4px solid red;
+    border-color: red;
 }
 
 .orange-radio {
-    border: 4px solid orange;
+    border-color: orange;
 }
 
 .cyan-radio {
-    border: 4px solid cyan;
+    border-color: cyan;
 }
 
 .green-radio {
-    border: 4px solid green;
+    border-color: green;
 }
 
 .blue-radio {
-    border: 4px solid blue;
+    border-color: blue;
 }
 
 .grey-radio {
-    border: 4px solid grey;
+    border-color: grey;
 }

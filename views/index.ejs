@@ -9,56 +9,73 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <h1>OpenCanvas</h1>
-            </div>
-            <div class="col-md-2 text-right">
-                <h5><span id="user-count">1</span> Users Online</h5>
-            </div>
-        </div>
+    <div>
         <div class="row MT10">
-            <div class="col-md-12">
-                <div class="canvas-container">
-                    <canvas id="draw-canvas" width="2000px" height="2000px"></canvas>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4>OpenCanvas</h4>
+                            </div>
+                            <div class="col-md-2">
+                                <h5><span id="user-count">1</span> Users Online</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="canvas-container">
+                            <canvas id="draw-canvas" width="2000px" height="2000px"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Color Palette</div>
+                    <div class="panel-body">
+                        <div class="row MT10">
+                            <div class="col-md-2 col-sm-2">
+                                <input id="black-radio" class="cradio black-radio" type="radio" name="sel-color" value="0" checked />
+                                <label for="black-radio">Black</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="white-radio" class="cradio white-radio" type="radio" name="sel-color" value="1" />
+                                <label for="white-radio">White</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="red-radio" class="cradio red-radio" type="radio" name="sel-color" value="2" />
+                                <label for="red-radio">Red</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="orange-radio" class="cradio orange-radio" type="radio" name="sel-color" value="3" />
+                                <label for="orange-radio">Orange</label>
+                            </div>
+                        </div>
+                        <div class="row MT10">
+                            <div class="col-md-2 col-sm-2">
+                                <input id="cyan-radio" class="cradio cyan-radio" type="radio" name="sel-color" value="4" />
+                                <label for="cyan-radio">Cyan</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="green-radio" class="cradio green-radio" type="radio" name="sel-color" value="5" />
+                                <label for="green-radio">Green</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="blue-radio" class="cradio blue-radio" type="radio" name="sel-color" value="6" />
+                                <label for="blue-radio">Blue</label>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <input id="grey-radio" class="cradio grey-radio" type="radio" name="sel-color" value="7" />
+                                <label for="grey-radio">Grey</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="row MT10">
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="black-radio" class="cradio black-radio" type="radio" name="sel-color" value="0" checked />
-                <label for="black-radio">Black</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="white-radio" class="cradio white-radio" type="radio" name="sel-color" value="1" />
-                <label for="white-radio">White</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="red-radio" class="cradio red-radio" type="radio" name="sel-color" value="2" />
-                <label for="red-radio">Red</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="orange-radio" class="cradio orange-radio" type="radio" name="sel-color" value="3" />
-                <label for="orange-radio">Orange</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="cyan-radio" class="cradio cyan-radio" type="radio" name="sel-color" value="4" />
-                <label for="cyan-radio">Cyan</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="green-radio" class="cradio green-radio" type="radio" name="sel-color" value="5" />
-                <label for="green-radio">Green</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="blue-radio" class="cradio blue-radio" type="radio" name="sel-color" value="6" />
-                <label for="blue-radio">Blue</label>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <input id="grey-radio" class="cradio grey-radio" type="radio" name="sel-color" value="7" />
-                <label for="grey-radio">Grey</label>
-            </div>
-        </div>
+
     </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
