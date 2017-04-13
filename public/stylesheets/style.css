@@ -1,10 +1,19 @@
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 a {
     color: #00B7FF;
+}
+
+#draw-canvas {
+    cursor: pointer;
 }
 
 .canvas-container {
