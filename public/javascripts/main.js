@@ -129,5 +129,12 @@
         }
     }, false);
 
+    document.getElementById('download-image').addEventListener('click', function() {
+        var data = canvas.toDataURL('image/png');
+        data = data.replace(/^data:image\/[^;]*/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B');
+        this.setAttribute('download', 'art.bmp');
+        this.setAttribute('href', data);
+    }, false);
+
     loadCoordinatesFromServer();
 })();
