@@ -16,6 +16,7 @@
     var isLeftClickActive = false;
     var socket = io();
     const PIXEL_SIZE = 5;
+    const CANVAS_SIZE = 2000;
 
     socket.on('connect', function() {
         console.log('Connected to socket...');
@@ -43,6 +44,21 @@
                 drawExistingCoordinates(data);
             }
         });
+    }
+
+    var drawGrid = function() {
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#CDCDCD";
+        for (var i = 0; i < CANVAS_SIZE; i = i + PIXEL_SIZE) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, CANVAS_SIZE);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(CANVAS_SIZE, i);
+            ctx.stroke();
+        }
     }
 
     var getMousePos = function(evt) {
@@ -137,4 +153,5 @@
     }, false);
 
     loadCoordinatesFromServer();
+    drawGrid();
 })();
